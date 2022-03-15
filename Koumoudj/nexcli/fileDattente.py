@@ -62,10 +62,10 @@ class Client:
 	"""
 	def show(self):
 		# On récupère le numéro du client courant
-		text = "N° " + str(self.number) + " (" + self.arrival + ")\n"
+		text = "{ 'type' : 'client', 'number' : " + str(self.number) + ", 'arrival' : " + self.arrival + "}"
 		# Et on demande à l'éventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
-			text += self.nextClient.show()
+			text += ', ' + self.nextClient.show()
 		return text
 	
 	def __str__(self):
@@ -117,10 +117,10 @@ class PregnantClient(Client):
 	"""
 	def show(self):
 		# On récupère le numéro du client courant
-		text = "Femme enceinte N° " + str(self.number) + " (" + self.arrival + ")\n"
+		text = "{ 'type' : 'pregnant', 'number' : " + str(self.number) + ", 'arrival' : " + self.arrival + "}"
 		# Et on demande à l'éventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
-			text += self.nextClient.show()
+			text += ', ' + self.nextClient.show()
 		return text
 
 """
@@ -176,10 +176,10 @@ class SeniorClient(Client):
 	"""
 	def show(self):
 		# On récupère le numéro du client courant
-		text = "3ème âge N° " + str(self.number) + " (" + self.arrival + ")\n"
+		text = "{ 'type' : 'senior', 'number' : " + str(self.number) + ", 'arrival' : " + self.arrival + "}"
 		# Et on demande à l'éventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
-			text += self.nextClient.show()
+			text += ', ' + self.nextClient.show()
 		return text
 
 """
