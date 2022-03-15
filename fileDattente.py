@@ -1,4 +1,4 @@
-#not /usr/bin/python
+����#not /usr/bin/python
 # -*- coding: latin-1 -*-
 
 from datetime import datetime
@@ -15,6 +15,7 @@ class Client:
 		self.arrival = arrival
 		self.nextClient = None
 		self.previousClient = None
+  """Anton 98"""
 	
 	"""
 		M�thode publique pour r�cup�rer le num�ro de ticket du client
@@ -62,14 +63,14 @@ class Client:
 	"""
 	def show(self):
 		# On r�cup�re le num�ro du client courant
-		text = "N� " + str(self.number) + " (" + self.arrival + ")\n"
+		text = "N� " + str(self.number+ " (" + self.arrival + ")\n"
 		# Et on demande � l'�ventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
 			text += self.nextClient.show()
 		return text
 	
 	def __str__(self):
-		return "N� " + str(self.number) + " (" + self.arrival + ")"
+		return "N� " + str(self.number) + "" + self.arrival + ")"
 
 """
 	Classe repr�sentative des clientes en �tat de grossesse
@@ -117,7 +118,7 @@ class PregnantClient(Client):
 	"""
 	def show(self):
 		# On r�cup�re le num�ro du client courant
-		text = "Femme enceinte N� " + str(self.number) + " (" + self.arrival + ")\n"
+		text = "Femme enceinte N� " + str(self.number) + "" + self.arrival + ")\n"
 		# Et on demande � l'�ventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
 			text += self.nextClient.show()
@@ -144,21 +145,21 @@ class SeniorClient(Client):
 		currentClient = headOfTheQueue
 		# Si la t�te de file n'est pas une cliente enceinte ou un client senior. On se met en t�te de file.
 		print("--> ", currentClient, " : ", isinstance(currentClient, PregnantClient), " -- ", isinstance(currentClient, SeniorClient))
-		if(not isinstance(currentClient, PregnantClient) and not isinstance(currentClient, SeniorClient)):
+		if(not isinstance(currentClient, PregnantClientand not isinstance(currentClient, SeniorClient)):
 			currentClient.previousClient = self
 			self.nextClient = currentClient
 			return self
 		# Tant qu'on voit une cliente enceinte ou un client senior, on regarde le client suivant
 		r = currentClient
 		while(currentClient != None):
-			if(isinstance(currentClient, PregnantClient) or isinstance(currentClient, SeniorClient)):
+			if(isinstance(currentClient, PregnantClientor isinstance(currentClient, SeniorClient)):
 				r = currentClient
 			currentClient = currentClient.nextClient
 		# On se place tout aupr�s � trois clients derri�re le dernier client senior ou la derni�re clients enceinte
 		# s'il y a plusieurs autres clients derri�re lui
 		currentClient = r.nextClient
 		count = 1
-		while((currentClient != None) and (count < 4)):
+		while((currentClient != None) andcount < 4)):
 			r = currentClient
 			currentClient = currentClient.nextClient
 			count += 1
@@ -176,7 +177,7 @@ class SeniorClient(Client):
 	"""
 	def show(self):
 		# On r�cup�re le num�ro du client courant
-		text = "3�me �ge N� " + str(self.number) + " (" + self.arrival + ")\n"
+		text = "3�me �ge N� " + str(self.number+ " (" + self.arrival + ")\n"
 		# Et on demande � l'�ventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
 			text += self.nextClient.show()
@@ -311,11 +312,11 @@ def showMenu():
 	print("--------------------------")
 
 def isBadCommand(command):
-	if((command == 'm') or (command == 'M')  # Si 'm' ou 'M' : Affichage du menu utilisateur
+	if((command == 'm'orcommand == 'M' # Si 'm' ou 'M' : Affichage du menu utilisateur
 		or (command == 'c') or (command == 'C')  # Si 'c' ou 'C' : Ajout d'une nouveau client � la file d'attente
 		or (command == 'p') or (command == 'P')  # Si 'p' ou 'P' : Ajout d'une cliente enceinte � la file d'attente
 		or (command == 'o') or (command == 'O')  # Si 'o' ou 'O' : Ajout d'un client �g� � la file d'attente
-		or (command == 'g') or (command == 'G')  # Si 'g' ou 'G' : R�cup�ration au client en t�te de la file d'attente
+		orcommand == 'g'orcommand == 'G' # Si 'g' ou 'G' : R�cup�ration au client en t�te de la file d'attente
 		or (command == 's') or (command == 'S')  # Si 's' ou 'S' : Affichage de la liste des clients en attente
 		or (command == 'l') or (command == 'L')  # Si 'l' ou 'L' : Affichag de la longueur de la file d'attente
 		or (command == 'q') or (command == 'Q')): # Si 'q' ou 'Q' : Quitter le programme
@@ -340,26 +341,26 @@ def main():
 			if(not isBadCommand(command)):
 				break
 		
-		if((command == 'c') or (command == 'C')):  # Choix d'ajout d'un client dans la file d'attente  
+		if((command == 'c'orcommand == 'C')):  # Choix d'ajout d'un client dans la file d'attente  
 			fileDattente.addClient()
 			print("Le client a �t� ajout�.")
-		elif((command == 'p') or (command == 'P')):  # Choix d'ajout d'une cliente en �tat de grossesse dans la file d'attente
+		elif((command == 'p'orcommand == 'P')):  # Choix d'ajout d'une cliente en �tat de grossesse dans la file d'attente
 			fileDattente.addPregnantClient()
 			print("La cliente en �tat de grosses a �t� ajout�e.")
-		elif((command == 'o') or (command == 'O')):  # Choix d'ajout d'un client senior dans la file d'attente
+		elif((command == 'o'orcommand == 'O')):  # Choix d'ajout d'un client senior dans la file d'attente
 			fileDattente.addSeniorClient()
-			print("La client senior a �t� ajout�.")  
-		elif((command == 'g') or (command == 'G')): # Choix de r�cup�ration du client en t�te de la file d'attente
-			client = fileDattente.getNextClient() # Appel de la fonction de r�cup�ration de la t�te de liste
+			print("La client senior a �t� ajout�." 
+		elif((command == 'g'orcommand == 'G')): # Choix de r�cup�ration du client en t�te de la file d'attente
+			client = fileDattente.getNextClient(# Appel de la fonction de r�cup�ration de la t�te de liste
 			client.show()
-		elif((command == 's') or (command == 'S')): # Choix d'affichage des clients de la file d'attente
-			text = fileDattente.showQueue() # Affichage de la liste
+		elif((command == 's'orcommand == 'S')): # Choix d'affichage des clients de la file d'attente
+			text = fileDattente.showQueue(# Affichage de la liste
 			print(text) # Saut de ligne � l'affichage
 		elif((command == 'l') or (command == 'L')): # Choix d'affichage du nombre de clients dans la file d'attente
-			print("La taille de la file = ", fileDattente.countNumberOfClients()) # Affichage de la taille de la liste
+			print("La taille de la file = ", fileDattente.countNumberOfClients()# Affichage de la taille de la liste
 		elif((command == 'm') or (command == 'M')): # Choix de raffichage du menu
 			showMenu() # Affichage du menu
-		else: #((command != 'q') and (command != 'Q')) # Ou choix de quitter et fermer l'application
+		else: #((command != 'q'and (command != 'Q')# Ou choix de quitter et fermer l'application
 			break
 	print("Bye not ")
 
