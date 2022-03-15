@@ -37,7 +37,7 @@ class Client:
 	"""
 		Méthode publique pour définir l'heure d'arrivée du client
 	"""
-	def setArrival(self, number):
+	def setArrival(self, arrival):
 		self.arrival = arrival
 	
 	"""
