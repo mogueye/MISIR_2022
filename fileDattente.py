@@ -15,7 +15,7 @@ class Client:
 		self.arrival = arrival
 		self.nextClient = None
 		self.previousClient = None
-  """Anton 98"""
+	"""Anton 98 Testeur"""
 	
 	"""
 		M�thode publique pour r�cup�rer le num�ro de ticket du client
