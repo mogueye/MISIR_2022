@@ -4,7 +4,7 @@
 from datetime import datetime
 
 """
-	Classe représentative des clients
+	Classe reprï¿½sentative des clients
 """
 class Client:
 	"""
@@ -17,85 +17,85 @@ class Client:
 		self.previousClient = None
 	
 	"""
-		Méthode publique pour récupérer le numéro de ticket du client
+		Mï¿½thode publique pour rï¿½cupï¿½rer le numï¿½ro de ticket du client
 	"""
 	def getNumber(self):
 		return self.number
 	
 	"""
-		Méthode publique pour définir le numéro de ticket du client
+		Mï¿½thode publique pour dï¿½finir le numï¿½ro de ticket du client
 	"""
 	def setNumber(self, number):
 		self.number = number
 	
 	"""
-		Méthode publique pour récupérer l'heure d'arrivée du client
+		Mï¿½thode publique pour rï¿½cupï¿½rer l'heure d'arrivï¿½e du client
 	"""
 	def getArrival(self):
 		return self.arrival
 	
 	"""
-		Méthode publique pour définir l'heure d'arrivée du client
+		Mï¿½thode publique pour dï¿½finir l'heure d'arrivï¿½e du client
 	"""
 	def setArrival(self, number):
 		self.arrival = arrival
 	
 	"""
-		Méthode publique d'auto-insertion du client courant dans la file d'attente. La tête de file lui est transmise en paramètre
+		Mï¿½thode publique d'auto-insertion du client courant dans la file d'attente. La tï¿½te de file lui est transmise en paramï¿½tre
 	"""
 	def insertIntoQueue(self, headOfTheQueue):
-		# S'il n'y a personne en tête de file. Autrement dit la file est vide
+		# S'il n'y a personne en tï¿½te de file. Autrement dit la file est vide
 		if(headOfTheQueue == None):
-			return self # La cliente devient la tête de file. Et c'est terminé.
+			return self # La cliente devient la tï¿½te de file. Et c'est terminï¿½.
 		# Sinon, on cherche le dernier client ...
 		currentClient = headOfTheQueue
 		while(currentClient.nextClient != None):
 			currentClient = currentClient.nextClient
-		# ... et on se met derrière lui
+		# ... et on se met derriï¿½re lui
 		currentClient.nextClient = self
 		self.previousClient = currentClient
-		# On informe l'instance de la file d'attente de la tête de file retenue après traitement
+		# On informe l'instance de la file d'attente de la tï¿½te de file retenue aprï¿½s traitement
 		return headOfTheQueue
 	
 	"""
-		Méthode publique d'affichage d'un client
+		Mï¿½thode publique d'affichage d'un client
 	"""
 	def show(self):
-		# On récupère le numéro du client courant
-		text = "N° " + str(self.number) + " (" + self.arrival + ")\n"
-		# Et on demande à l'éventuel client qui suit dans la file d'attente de s'afficher
+		# On rï¿½cupï¿½re le numï¿½ro du client courant
+		text = "Nï¿½ " + str(self.number) + " (" + self.arrival + ")\n"
+		# Et on demande ï¿½ l'ï¿½ventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
 			text += self.nextClient.show()
 		return text
 	
 	def __str__(self):
-		return "N° " + str(self.number) + " (" + self.arrival + ")"
+		return "Nï¿½ " + str(self.number) + " (" + self.arrival + ")"
 
 """
-	Classe représentative des clientes en état de grossesse
+	Classe reprï¿½sentative des clientes en ï¿½tat de grossesse
 """
 class PregnantClient(Client):
 	"""
-		Classe représentative des clientes en état de grossess
+		Classe reprï¿½sentative des clientes en ï¿½tat de grossess
 	"""
 	def __init__(self, number, arrival):
 		Client.__init__(self, number, arrival)
 	
 	"""
-		Redéfinition de la méthode publique d'auto-insertion de la cliente enceinte courant dans la file d'attente. La tête de file lui est transmise en paramètre
+		Redï¿½finition de la mï¿½thode publique d'auto-insertion de la cliente enceinte courant dans la file d'attente. La tï¿½te de file lui est transmise en paramï¿½tre
 	"""
 	def insertIntoQueue(self, headOfTheQueue):
-		# S'il n'y a personne en tête de file. Autrement dit la file est vide
+		# S'il n'y a personne en tï¿½te de file. Autrement dit la file est vide
 		if(headOfTheQueue == None):
-			return self # La cliente devient la tête de file. Et c'est terminé.
-		# Sinon, on parcourt les clients de la file d'attente à partir du début
+			return self # La cliente devient la tï¿½te de file. Et c'est terminï¿½.
+		# Sinon, on parcourt les clients de la file d'attente ï¿½ partir du dï¿½but
 		currentClient = headOfTheQueue
-		# Si la tête de file n'est pas une cliente enceinte. On se met en tête de file.
+		# Si la tï¿½te de file n'est pas une cliente enceinte. On se met en tï¿½te de file.
 		if(not isinstance(currentClient, PregnantClient)):
 			currentClient.previousClient = self
 			self.nextClient = currentClient
 			return self
-		# Sinon, on cherche la position de la dernière client enceinte
+		# Sinon, on cherche la position de la derniï¿½re client enceinte
 		r = currentClient
 		while(currentClient != None):
 			if(isinstance(currentClient, PregnantClient)):
@@ -103,46 +103,46 @@ class PregnantClient(Client):
 				currentClient = currentClient.nextClient
 			else:
 				break
-		# Et on se met derrière elle
+		# Et on se met derriï¿½re elle
 		self.nextClient = r.nextClient
 		if(self.nextClient != None):
 			self.nextClient.previousClient = self
 		self.previousClient = r
 		r.nextClient = self
-		# On informe l'instance de la file d'attente de la tête de file retenue après traitement
+		# On informe l'instance de la file d'attente de la tï¿½te de file retenue aprï¿½s traitement
 		return headOfTheQueue
 	
 	"""
-		Redéfinition de la méthode publique d'affichage d'une cliente en état de grossesse
+		Redï¿½finition de la mï¿½thode publique d'affichage d'une cliente en ï¿½tat de grossesse
 	"""
 	def show(self):
-		# On récupère le numéro du client courant
-		text = "Femme enceinte N° " + str(self.number) + " (" + self.arrival + ")\n"
-		# Et on demande à l'éventuel client qui suit dans la file d'attente de s'afficher
+		# On rï¿½cupï¿½re le numï¿½ro du client courant
+		text = "Femme enceinte Nï¿½ " + str(self.number) + " (" + self.arrival + ")\n"
+		# Et on demande ï¿½ l'ï¿½ventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
 			text += self.nextClient.show()
 		return text
 
 """
-	Classe représentative des clients seniors
+	Classe reprï¿½sentative des clients seniors
 """
 class SeniorClient(Client):
 	"""
-		Classe représentative des clientes en état de grossess
+		Classe reprï¿½sentative des clientes en ï¿½tat de grossess
 	"""
 	def __init__(self, number, arrival):
 		Client.__init__(self, number, arrival)
 	
 	"""
-		Redéfinition de la méthode publique d'auto-insertion du client senior courant dans la file d'attente. La tête de file lui est transmise en paramètre
+		Redï¿½finition de la mï¿½thode publique d'auto-insertion du client senior courant dans la file d'attente. La tï¿½te de file lui est transmise en paramï¿½tre
 	"""
 	def insertIntoQueue(self, headOfTheQueue):
-		# S'il n'y a personne en tête de file. Autrement dit la file est vide
+		# S'il n'y a personne en tï¿½te de file. Autrement dit la file est vide
 		if(headOfTheQueue == None):
-			return self # La cliente devient la tête de file. Et c'est terminé.
-		# Sinon, on parcourt les clients de la file d'attente à partir du début
+			return self # La cliente devient la tï¿½te de file. Et c'est terminï¿½.
+		# Sinon, on parcourt les clients de la file d'attente ï¿½ partir du dï¿½but
 		currentClient = headOfTheQueue
-		# Si la tête de file n'est pas une cliente enceinte ou un client senior. On se met en tête de file.
+		# Si la tï¿½te de file n'est pas une cliente enceinte ou un client senior. On se met en tï¿½te de file.
 		print("--> ", currentClient, " : ", isinstance(currentClient, PregnantClient), " -- ", isinstance(currentClient, SeniorClient))
 		if(not isinstance(currentClient, PregnantClient) and not isinstance(currentClient, SeniorClient)):
 			currentClient.previousClient = self
@@ -154,36 +154,36 @@ class SeniorClient(Client):
 			if(isinstance(currentClient, PregnantClient) or isinstance(currentClient, SeniorClient)):
 				r = currentClient
 			currentClient = currentClient.nextClient
-		# On se place tout auprès à trois clients derrière le dernier client senior ou la dernière clients enceinte
-		# s'il y a plusieurs autres clients derrière lui
+		# On se place tout auprï¿½s ï¿½ trois clients derriï¿½re le dernier client senior ou la derniï¿½re clients enceinte
+		# s'il y a plusieurs autres clients derriï¿½re lui
 		currentClient = r.nextClient
 		count = 1
 		while((currentClient != None) and (count < 4)):
 			r = currentClient
 			currentClient = currentClient.nextClient
 			count += 1
-		# On s'insère à cette position
+		# On s'insï¿½re ï¿½ cette position
 		self.nextClient = r.nextClient
 		if(self.nextClient != None):
 			self.nextClient.previousClient = self
 		self.previousClient = r
 		r.nextClient = self
-		# On informe l'instance de la file d'attente de la tête de file retenue après traitement
+		# On informe l'instance de la file d'attente de la tï¿½te de file retenue aprï¿½s traitement
 		return headOfTheQueue
 	
 	"""
-		Redéfinition de la méthode publique d'affichage d'un client senior
+		Redï¿½finition de la mï¿½thode publique d'affichage d'un client senior
 	"""
 	def show(self):
-		# On récupère le numéro du client courant
-		text = "3ème âge N° " + str(self.number) + " (" + self.arrival + ")\n"
-		# Et on demande à l'éventuel client qui suit dans la file d'attente de s'afficher
+		# On rï¿½cupï¿½re le numï¿½ro du client courant
+		text = "3ï¿½me ï¿½ge Nï¿½ " + str(self.number) + " (" + self.arrival + ")\n"
+		# Et on demande ï¿½ l'ï¿½ventuel client qui suit dans la file d'attente de s'afficher
 		if(self.nextClient != None):
 			text += self.nextClient.show()
 		return text
 
 """
-	Classe représentative de la file d'attente
+	Classe reprï¿½sentative de la file d'attente
 """
 class FileDattente:
 	"""
@@ -196,103 +196,103 @@ class FileDattente:
 		self.next_senior_client_number = next_senior_client_number
 	
 	"""
-		Méthode publique d'ajout d'un client dans la file d'attente
+		Mï¿½thode publique d'ajout d'un client dans la file d'attente
 	"""
 	def addClient(self):
-		# Affectation d'un numéro de ticket au client
+		# Affectation d'un numï¿½ro de ticket au client
 		number = self.next_client_number
-		# Sauvegarde de l'heure d'arrivée du client
+		# Sauvegarde de l'heure d'arrivï¿½e du client
 		now = datetime.now()
 		arrival = now.strftime("%d/%m/%Y %H:%M:%S")
-		# Création d'une nouvelle instance de la classe <Client> avec le numéro de ticket et l'heure d'arrivée
+		# Crï¿½ation d'une nouvelle instance de la classe <Client> avec le numï¿½ro de ticket et l'heure d'arrivï¿½e
 		client = Client(number, arrival)
-		# Si la file est vide, le nouveau client devient la tête de la file d'attente
+		# Si la file est vide, le nouveau client devient la tï¿½te de la file d'attente
 		if(self.headOfTheQueue == None):
 			self.headOfTheQueue = client
-		# Sinon la méthode <insertIntoQueue> de la classe <Client> est appelée
+		# Sinon la mï¿½thode <insertIntoQueue> de la classe <Client> est appelï¿½e
 		else:
 			self.headOfTheQueue = client.insertIntoQueue(self.headOfTheQueue)
-		# Incrémentation du numéro de ticket pour le positionnement du prochain client
+		# Incrï¿½mentation du numï¿½ro de ticket pour le positionnement du prochain client
 		self.next_client_number += 1
 		return number, arrival
 	
 	"""
-		Méthode publique d'ajout d'une client enceinte dans la file d'attente
+		Mï¿½thode publique d'ajout d'une client enceinte dans la file d'attente
 	"""
 	def addPregnantClient(self):
-		# Affectation d'un numéro de ticket à la cliente enceinte
+		# Affectation d'un numï¿½ro de ticket ï¿½ la cliente enceinte
 		number = self.next_pregnant_client_number
-		# Sauvegarde de l'heure d'arrivée de la cliente enceinte
+		# Sauvegarde de l'heure d'arrivï¿½e de la cliente enceinte
 		now = datetime.now()
 		arrival = now.strftime("%d/%m/%Y %H:%M:%S")
-		# Création d'une nouvelle instance de la classe <PregnantClient> avec le numéro de ticket et l'heure d'arrivée
+		# Crï¿½ation d'une nouvelle instance de la classe <PregnantClient> avec le numï¿½ro de ticket et l'heure d'arrivï¿½e
 		client = PregnantClient(number, arrival)
-		# Si la file est vide, la nouvelle cliente devient la tête de la file d'attente
+		# Si la file est vide, la nouvelle cliente devient la tï¿½te de la file d'attente
 		if(self.headOfTheQueue == None):
 			self.headOfTheQueue = client
-		# Sinon la méthode <insertIntoQueue> de la classe <PregnantClient> est appelée
+		# Sinon la mï¿½thode <insertIntoQueue> de la classe <PregnantClient> est appelï¿½e
 		else:
 			self.headOfTheQueue = client.insertIntoQueue(self.headOfTheQueue)
-		# Incrémentation du numéro de ticket pour le positionnement de la prochaine cliente enceinte
+		# Incrï¿½mentation du numï¿½ro de ticket pour le positionnement de la prochaine cliente enceinte
 		self.next_pregnant_client_number += 1
 		return number, arrival
 	
 	"""
-		Méthode publique d'ajout d'un client senior dans la file d'attente 
+		Mï¿½thode publique d'ajout d'un client senior dans la file d'attente 
 	"""
 	def addSeniorClient(self):
-		# Affectation d'un numéro de ticket au client senior
+		# Affectation d'un numï¿½ro de ticket au client senior
 		number = self.next_senior_client_number
-		# Sauvegarde de l'heure d'arrivée du client senior
+		# Sauvegarde de l'heure d'arrivï¿½e du client senior
 		now = datetime.now()
 		arrival = now.strftime("%d/%m/%Y %H:%M:%S")
-		# Création d'une nouvelle instance de la classe <SeniorClient> avec le numéro de ticket et l'heure d'arrivée
+		# Crï¿½ation d'une nouvelle instance de la classe <SeniorClient> avec le numï¿½ro de ticket et l'heure d'arrivï¿½e
 		client = SeniorClient(number, arrival)
-		# Si la file est vide, la nouvelle cliente devient la tête de la file d'attente
+		# Si la file est vide, la nouvelle cliente devient la tï¿½te de la file d'attente
 		if(self.headOfTheQueue == None):
 			self.headOfTheQueue = client
-		# Sinon la méthode <insertIntoQueue> de la classe <SeniorClient> est appelée
+		# Sinon la mï¿½thode <insertIntoQueue> de la classe <SeniorClient> est appelï¿½e
 		else:
 			self.headOfTheQueue = client.insertIntoQueue(self.headOfTheQueue)
-		# Incrémentation du numéro de ticket pour le positionnement du prochain client senior
+		# Incrï¿½mentation du numï¿½ro de ticket pour le positionnement du prochain client senior
 		self.next_senior_client_number += 1
 		return number, arrival
 	
 	"""
-		Méthode publique de récupération du nombre de clients dans la file 
+		Mï¿½thode publique de rï¿½cupï¿½ration du nombre de clients dans la file 
 	"""
 	def countNumberOfClients(self):
-		# Initialisation du compteur du nombre de clients à zéro
+		# Initialisation du compteur du nombre de clients ï¿½ zï¿½ro
 		count = 0
-		# On parcourt la file d'attente à partir de la tête 
+		# On parcourt la file d'attente ï¿½ partir de la tï¿½te 
 		currentClient = self.headOfTheQueue
 		# Tant qu'on n'a pas atteint la fin de la file d'attente ...
 		while(currentClient != None):
-			# ... on incrémente le compteur d'un pas
+			# ... on incrï¿½mente le compteur d'un pas
 			count += 1
-			# on se déplace sur le client suivant
+			# on se dï¿½place sur le client suivant
 			currentClient = currentClient.nextClient
-		# On retourne le nombre de clients compté
+		# On retourne le nombre de clients comptï¿½
 		return count
 	
 	"""
-		Méthode publique de récupération du nombre de clients dans la file 
+		Mï¿½thode publique de rï¿½cupï¿½ration du nombre de clients dans la file 
 	"""
 	def getNextClient(self):
-		# On récupére l'instance de la classe <Client> en tête de la file d'attente
+		# On rï¿½cupï¿½re l'instance de la classe <Client> en tï¿½te de la file d'attente
 		topClient = self.headOfTheQueue
-		# On place le deuxième de la file en tête
+		# On place le deuxiï¿½me de la file en tï¿½te
 		if(topClient != None):
 			self.headOfTheQueue = self.headOfTheQueue.nextClient
 			self.headOfTheQueue.previousClient = None
-		# On retourne le client en tête de file
+		# On retourne le client en tï¿½te de file
 		return topClient
 	
 	"""
-		Méthode publique d'affichage de la file d'attente 
+		Mï¿½thode publique d'affichage de la file d'attente 
 	"""
 	def showQueue(self):
-		# Si la file n'est pas vide, on affiche la tête de la file d'attente
+		# Si la file n'est pas vide, on affiche la tï¿½te de la file d'attente
 		if(self.headOfTheQueue != None):
 			return self.headOfTheQueue.show()
 		# Sinon, on informe que la file est vide
@@ -312,10 +312,10 @@ def showMenu():
 
 def isBadCommand(command):
 	if((command == 'm') or (command == 'M')  # Si 'm' ou 'M' : Affichage du menu utilisateur
-		or (command == 'c') or (command == 'C')  # Si 'c' ou 'C' : Ajout d'une nouveau client à la file d'attente
-		or (command == 'p') or (command == 'P')  # Si 'p' ou 'P' : Ajout d'une cliente enceinte à la file d'attente
-		or (command == 'o') or (command == 'O')  # Si 'o' ou 'O' : Ajout d'un client âgé à la file d'attente
-		or (command == 'g') or (command == 'G')  # Si 'g' ou 'G' : Récupération au client en tête de la file d'attente
+		or (command == 'c') or (command == 'C')  # Si 'c' ou 'C' : Ajout d'une nouveau client ï¿½ la file d'attente
+		or (command == 'p') or (command == 'P')  # Si 'p' ou 'P' : Ajout d'une cliente enceinte ï¿½ la file d'attente
+		or (command == 'o') or (command == 'O')  # Si 'o' ou 'O' : Ajout d'un client ï¿½gï¿½ ï¿½ la file d'attente
+		or (command == 'g') or (command == 'G')  # Si 'g' ou 'G' : Rï¿½cupï¿½ration au client en tï¿½te de la file d'attente
 		or (command == 's') or (command == 'S')  # Si 's' ou 'S' : Affichage de la liste des clients en attente
 		or (command == 'l') or (command == 'L')  # Si 'l' ou 'L' : Affichag de la longueur de la file d'attente
 		or (command == 'q') or (command == 'Q')): # Si 'q' ou 'Q' : Quitter le programme
@@ -324,17 +324,17 @@ def isBadCommand(command):
 		return True
 
 def main():
-	# Création de l'objet "file d'attente"
+	# Crï¿½ation de l'objet "file d'attente"
 	fileDattente = FileDattente()
 	# Affichage du menu initial pour guider l'utilisateur
 	showMenu()
 	
 	while True :
-		# Demande du choix de l'utilisateur et contrôle de saisie
+		# Demande du choix de l'utilisateur et contrï¿½le de saisie
 		while True:
-			# Demande à l'utilisateur de faire un choix en tapant une commande
+			# Demande ï¿½ l'utilisateur de faire un choix en tapant une commande
 			command = input("-- Faites un choix: ")
-			# Récupération de la première caractère correspondant au choix
+			# Rï¿½cupï¿½ration de la premiï¿½re caractï¿½re correspondant au choix
 			command = command[0]
 			# Tant que la commande est inconnue, on lui redemande de faire un choix
 			if(not isBadCommand(command)):
@@ -342,19 +342,19 @@ def main():
 		
 		if((command == 'c') or (command == 'C')):  # Choix d'ajout d'un client dans la file d'attente  
 			fileDattente.addClient()
-			print("Le client a été ajouté.")
-		elif((command == 'p') or (command == 'P')):  # Choix d'ajout d'une cliente en état de grossesse dans la file d'attente
+			print("Le client a ï¿½tï¿½ ajoutï¿½.")
+		elif((command == 'p') or (command == 'P')):  # Choix d'ajout d'une cliente en ï¿½tat de grossesse dans la file d'attente
 			fileDattente.addPregnantClient()
-			print("La cliente en état de grosses a été ajoutée.")
+			print("La cliente en ï¿½tat de grosses a ï¿½tï¿½ ajoutï¿½e.")
 		elif((command == 'o') or (command == 'O')):  # Choix d'ajout d'un client senior dans la file d'attente
 			fileDattente.addSeniorClient()
-			print("La client senior a été ajouté.")  
-		elif((command == 'g') or (command == 'G')): # Choix de récupération du client en tête de la file d'attente
-			client = fileDattente.getNextClient() # Appel de la fonction de récupération de la tête de liste
+			print("La client senior a ï¿½tï¿½ ajoutï¿½.")  
+		elif((command == 'g') or (command == 'G')): # Choix de rï¿½cupï¿½ration du client en tï¿½te de la file d'attente
+			client = fileDattente.getNextClient() # Appel de la fonction de rï¿½cupï¿½ration de la tï¿½te de liste
 			client.show()
 		elif((command == 's') or (command == 'S')): # Choix d'affichage des clients de la file d'attente
 			text = fileDattente.showQueue() # Affichage de la liste
-			print(text) # Saut de ligne à l'affichage
+			print(text) # Saut de ligne ï¿½ l'affichage
 		elif((command == 'l') or (command == 'L')): # Choix d'affichage du nombre de clients dans la file d'attente
 			print("La taille de la file = ", fileDattente.countNumberOfClients()) # Affichage de la taille de la liste
 		elif((command == 'm') or (command == 'M')): # Choix de raffichage du menu
