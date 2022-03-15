@@ -214,6 +214,7 @@ class FileDattente:
 			self.headOfTheQueue = client.insertIntoQueue(self.headOfTheQueue)
 		# Incrémentation du numéro de ticket pour le positionnement du prochain client
 		self.next_client_number += 1
+		return number, arrival
 	
 	"""
 		Méthode publique d'ajout d'une client enceinte dans la file d'attente
@@ -234,6 +235,7 @@ class FileDattente:
 			self.headOfTheQueue = client.insertIntoQueue(self.headOfTheQueue)
 		# Incrémentation du numéro de ticket pour le positionnement de la prochaine cliente enceinte
 		self.next_pregnant_client_number += 1
+		return number, arrival
 	
 	"""
 		Méthode publique d'ajout d'un client senior dans la file d'attente 
@@ -254,6 +256,7 @@ class FileDattente:
 			self.headOfTheQueue = client.insertIntoQueue(self.headOfTheQueue)
 		# Incrémentation du numéro de ticket pour le positionnement du prochain client senior
 		self.next_senior_client_number += 1
+		return number, arrival
 	
 	"""
 		Méthode publique de récupération du nombre de clients dans la file 
